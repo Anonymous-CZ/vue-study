@@ -1,5 +1,13 @@
+<!--
+ * @Author: CZ
+ * @Date: 2022-04-14 20:15:18
+ * @LastEditors: CZ
+ * @LastEditTime: 2022-04-18 14:41:06
+ * @Description: 
+ * @FilePath: \vue-study\src\App.vue
+-->
 <template>
-  <nav>
+  <nav style="margin-top: 20px; margin-bottom: 30px">
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
   </nav>
@@ -13,6 +21,8 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 ::-webkit-scrollbar {
   width: 5px;
