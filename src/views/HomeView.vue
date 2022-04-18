@@ -2,7 +2,7 @@
  * @Author: CZ
  * @Date: 2022-04-18 10:41:57
  * @LastEditors: CZ
- * @LastEditTime: 2022-04-18 11:44:19
+ * @LastEditTime: 2022-04-18 16:05:59
  * @Description: Home
  * @FilePath: \vue-study\src\views\HomeView.vue
 -->
@@ -10,7 +10,7 @@
   <div class="home">
     <div></div>
     <div class="helloView">
-      <HelloWorld msg="Welcome to Your Vue.js App" />
+      <HelloWorld />
     </div>
     <div></div>
     <div class="firstView">
@@ -33,13 +33,15 @@ export default {
 <style lang="scss" scoped>
 .home {
   display: grid;
-  grid-template-columns: 1% 48% 2% 48% 1%;
+  // grid-template-columns: 1% 48% 2% 48% 1%;
+  // grid-template-rows: 50% 50%;
 }
 .helloView {
   background-color: rgb(255, 255, 255);
   &:hover {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.18), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
   }
+  margin-bottom: 10%;
 }
 .firstView {
   background-color: rgb(255, 255, 255);
