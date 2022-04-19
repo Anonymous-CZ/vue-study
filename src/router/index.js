@@ -2,7 +2,7 @@
  * @Author: CZ
  * @Date: 2022-04-18 10:41:57
  * @LastEditors: CZ
- * @LastEditTime: 2022-04-18 11:24:20
+ * @LastEditTime: 2022-04-19 10:14:20
  * @Description: 路由文件
  * @FilePath: \vue-study\src\router\index.js
  */
@@ -24,6 +24,11 @@ const routes = [{
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import( /* webpackChunkName: "about" */ '../views/AboutView.vue')
+  },
+  {
+    path: '/otherView',
+    name: 'otherView',
+    component: () => import( /* webpackChunkName: "Other" */ '../views/OtherView.vue')
   }
 ]
 

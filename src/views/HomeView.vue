@@ -2,7 +2,7 @@
  * @Author: CZ
  * @Date: 2022-04-18 10:41:57
  * @LastEditors: CZ
- * @LastEditTime: 2022-04-18 16:05:59
+ * @LastEditTime: 2022-04-19 11:36:53
  * @Description: Home
  * @FilePath: \vue-study\src\views\HomeView.vue
 -->
@@ -35,6 +35,7 @@ export default {
   display: grid;
   // grid-template-columns: 1% 48% 2% 48% 1%;
   // grid-template-rows: 50% 50%;
+  padding-bottom: 15%;
 }
 .helloView {
   background-color: rgb(255, 255, 255);
