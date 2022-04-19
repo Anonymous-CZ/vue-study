@@ -2,29 +2,31 @@
  * @Author: CZ
  * @Date: 2022-04-18 08:49:38
  * @LastEditors: CZ
- * @LastEditTime: 2022-04-19 11:54:51
+ * @LastEditTime: 2022-04-19 14:46:21
  * @Description: 第一个测试页
  * @FilePath: \vue-study\src\components\first-view.vue
 -->
 <template>
-  <h2>{{ count }}</h2>
-  <h2>{{ count2 }}</h2>
-  <button @click="update">update</button>
-  <button @click="addItem">add2</button>
-  <hr />
+  <div class="">
+    <h2>{{ count }}</h2>
+    <h2>{{ count2 }}</h2>
+    <button @click="update">update</button>
+    <button @click="addItem">add2</button>
+    <hr />
 
-  <h2>{{ "a:" + a + ";b:" + b + ";c:" + c }}</h2>
-  <h2>{{ "head:" + head + ";tail:" + tail }}</h2>
-  <hr />
-  <h2>{{ "foo:" + foo + ";bar:" + bar }}</h2>
-  <hr />
-  <div>
-    <button @click="addProperties">增加属性</button>
-    <h2>{{ fb }}</h2>
+    <h2>{{ "a:" + a + ";b:" + b + ";c:" + c }}</h2>
+    <h2>{{ "head:" + head + ";tail:" + tail }}</h2>
+    <hr />
+    <h2>{{ "foo:" + foo + ";bar:" + bar }}</h2>
+    <hr />
+    <div>
+      <button @click="addProperties">增加属性</button>
+      <h2>{{ fb }}</h2>
+    </div>
+    <hr />
+    <h2>{{ state }}</h2>
+    <button @click="updateState">变动数据</button>
   </div>
-  <hr />
-  <h2>{{ state }}</h2>
-  <button @click="updateState">变动数据</button>
 </template>
 
 <script>

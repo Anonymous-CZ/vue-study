@@ -2,13 +2,12 @@
  * @Author: CZ
  * @Date: 2022-04-18 10:41:57
  * @LastEditors: CZ
- * @LastEditTime: 2022-04-19 11:36:53
+ * @LastEditTime: 2022-04-19 14:45:11
  * @Description: Home
  * @FilePath: \vue-study\src\views\HomeView.vue
 -->
 <template>
-  <div class="home">
-    <div></div>
+  <div class="home backStyle">
     <div class="helloView">
       <HelloWorld />
     </div>

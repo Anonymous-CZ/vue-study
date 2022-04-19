@@ -2,7 +2,7 @@
  * @Author: CZ
  * @Date: 2022-04-18 10:41:57
  * @LastEditors: CZ
- * @LastEditTime: 2022-04-19 10:14:20
+ * @LastEditTime: 2022-04-19 14:17:36
  * @Description: 路由文件
  * @FilePath: \vue-study\src\router\index.js
  */
@@ -28,8 +28,13 @@ const routes = [{
   {
     path: '/otherView',
     name: 'otherView',
-    component: () => import( /* webpackChunkName: "Other" */ '../views/OtherView.vue')
-  }
+    component: () => import( /* webpackChunkName: "otherView" */ '../views/OtherView.vue')
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import( /* webpackChunkName: "login" */ '../views/LoginView.vue')
+  },
 ]
 
 const router = createRouter({

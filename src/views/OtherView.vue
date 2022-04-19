@@ -2,7 +2,7 @@
  * @Author: CZ
  * @Date: 2022-04-19 09:49:21
  * @LastEditors: CZ
- * @LastEditTime: 2022-04-19 11:00:42
+ * @LastEditTime: 2022-04-19 14:07:51
  * @Description: 其他入口页
  * @FilePath: \vue-study\src\views\OtherView.vue
 -->
@@ -20,7 +20,6 @@ export default {
     let increment = () => count.value++;
     return {
       count,
-
       increment,
     };
   },

@@ -2,16 +2,16 @@
  * @Author: CZ
  * @Date: 2022-04-14 20:15:18
  * @LastEditors: CZ
- * @LastEditTime: 2022-04-19 10:19:24
- * @Description: 
+ * @LastEditTime: 2022-04-19 15:52:12
+ * @Description: 主应用入口
  * @FilePath: \vue-study\src\App.vue
 -->
 <template>
-  <nav style="margin-top: 20px; margin-bottom: 30px">
+  <!-- <nav style="margin-top: 20px; margin-bottom: 30px">
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>|
     <router-link to="/otherView">Other</router-link>
-  </nav>
+  </nav> -->
   <router-view />
 </template>
 
@@ -22,8 +22,16 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+.backStyle {
   padding-left: 50px;
   padding-right: 50px;
+  background-color: rgb(255, 253, 249);
+}
+html,
+body,
+div {
+  height: 100%;
 }
 ::-webkit-scrollbar {
   width: 5px;
