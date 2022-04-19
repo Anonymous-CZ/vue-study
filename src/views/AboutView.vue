@@ -1,3 +1,11 @@
+<!--
+ * @Author: CZ
+ * @Date: 2022-04-18 10:41:57
+ * @LastEditors: CZ
+ * @LastEditTime: 2022-04-19 08:36:50
+ * @Description: grid布局方式
+ * @FilePath: \vue-study\src\views\AboutView.vue
+-->
 <template>
   <div class="about">
     <div class="content items-1"><h1>1</h1></div>
@@ -8,19 +16,21 @@
     <div class="content"><h1>6</h1></div>
     <div class="content"><h1>7</h1></div>
     <div class="content"><h1>8</h1></div>
-    <div class="content"><h1>9</h1></div>
+    <div class="content items-9"><h1>9</h1></div>
   </div>
+  <aspectRatioStyle />
 </template>
 <script>
-// import { ref } from "vue";
+import aspectRatioStyle from "@/components/aspect-ratio-style.vue";
 export default {
-  setup() {
-    return {};
+  name: "AboutView",
+  components: {
+    aspectRatioStyle,
   },
 };
 </script>
 
-<style  lang="scss">
+<style  lang="scss" scoped>
 .about {
   display: grid;
   grid-template-columns: 33% 33% 33%;
@@ -51,5 +61,8 @@ export default {
 /* 指定内容放在哪个区域 */
 .items-3 {
   grid-area: c;
+}
+.items-9 {
+  grid-column-end: span 3;
 }
 </style>
