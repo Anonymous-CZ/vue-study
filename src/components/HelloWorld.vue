@@ -2,7 +2,7 @@
  * @Author: CZ
  * @Date: 2022-04-14 20:15:18
  * @LastEditors: CZ
- * @LastEditTime: 2022-04-19 14:46:08
+ * @LastEditTime: 2022-04-19 19:05:12
  * @Description: 
  * @FilePath: \vue-study\src\components\HelloWorld.vue
 -->
@@ -80,10 +80,13 @@ input {
   /* 起点对齐|终点对齐|中点对齐|两端对齐| 每个项目两端距离相等，两边距离最小|占满*/
   /* align-content: flex-start | flex-end | center | space-between | space-around | stretch; */
   /* align-content: space-around; */
+  padding-bottom: 1%;
 }
 .flexbox-content {
   background-color: aquamarine;
   width: 30%;
+  height: 100px;
+  margin-bottom: 1%;
   &:hover {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }

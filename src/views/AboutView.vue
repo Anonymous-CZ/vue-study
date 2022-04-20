@@ -2,12 +2,12 @@
  * @Author: CZ
  * @Date: 2022-04-18 10:41:57
  * @LastEditors: CZ
- * @LastEditTime: 2022-04-19 08:36:50
+ * @LastEditTime: 2022-04-19 18:57:32
  * @Description: grid布局方式
  * @FilePath: \vue-study\src\views\AboutView.vue
 -->
 <template>
-  <div class="about">
+  <div class="about backStyle">
     <div class="content items-1"><h1>1</h1></div>
     <div class="content items-2"><h1>2</h1></div>
     <div class="content items-3"><h1>3</h1></div>

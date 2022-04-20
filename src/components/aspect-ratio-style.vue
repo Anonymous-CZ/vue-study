@@ -2,12 +2,12 @@
  * @Author: CZ
  * @Date: 2022-04-18 20:15:39
  * @LastEditors: CZ
- * @LastEditTime: 2022-04-19 08:38:38
+ * @LastEditTime: 2022-04-20 10:35:23
  * @Description: 纵横比测试
  * @FilePath: \vue-study\src\components\aspect-ratio-style.vue
 -->
 <template>
-  <div class="aspect-ratio-style">
+  <div class="aspect-ratio-style backStyle">
     <div class="content items-1">
       <img src="https://picsum.photos/800/500?random=1" alt="" srcset="" />
     </div>
@@ -25,15 +25,16 @@
 <style  lang="scss" scoped>
 .aspect-ratio-style {
   margin-top: 1%;
-  margin-bottom: 10%;
+  // margin-bottom: 10%;
+  padding-bottom: 10%;
   display: grid;
-  grid-template-columns: repeat(3, 30%);
+  grid-template-columns: repeat(3, 33%);
   grid-column-gap: 20px;
   overflow: hidden;
 }
 .content {
   &:hover {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
   width: 100%;
 }

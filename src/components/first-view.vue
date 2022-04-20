@@ -2,7 +2,7 @@
  * @Author: CZ
  * @Date: 2022-04-18 08:49:38
  * @LastEditors: CZ
- * @LastEditTime: 2022-04-19 14:46:21
+ * @LastEditTime: 2022-04-20 13:51:23
  * @Description: 第一个测试页
  * @FilePath: \vue-study\src\components\first-view.vue
 -->
@@ -41,8 +41,10 @@ export default {
     function update() {
       count.value = count.value + 1;
     }
+
     // 箭头函数
     var addItem = () => count2.value++;
+
     // 数组的解构赋值
     let [a, b, c] = [1, 2, 3];
     let [head, ...tail] = [1, 2, 3, 4];
