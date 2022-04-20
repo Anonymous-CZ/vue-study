@@ -2,7 +2,7 @@
  * @Author: CZ
  * @Date: 2022-04-18 10:41:57
  * @LastEditors: CZ
- * @LastEditTime: 2022-04-19 18:57:32
+ * @LastEditTime: 2022-04-20 15:30:30
  * @Description: grid布局方式
  * @FilePath: \vue-study\src\views\AboutView.vue
 -->
@@ -32,10 +32,11 @@ export default {
 
 <style  lang="scss" scoped>
 .about {
+  padding-top: 1%;
   display: grid;
   grid-template-columns: 33% 33% 33%;
   grid-template-rows: 100px 100px 100px;
-  grid-gap: 20px 20px;
+  grid-gap: 20px 0.5%;
   grid-template-areas:
     "a b c"
     "d e f"

@@ -2,7 +2,7 @@
  * @Author: CZ
  * @Date: 2022-04-14 20:15:18
  * @LastEditors: CZ
- * @LastEditTime: 2022-04-19 18:58:40
+ * @LastEditTime: 2022-04-20 15:25:20
  * @Description: 主应用入口
  * @FilePath: \vue-study\src\App.vue
 -->
@@ -28,11 +28,7 @@
   padding-right: 50px;
   background-color: rgb(255, 253, 249);
 }
-// html,
-// body,
-// div {
-//   height: 100%;
-// }
+
 ::-webkit-scrollbar {
   width: 5px;
   height: 0px;

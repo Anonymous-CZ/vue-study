@@ -2,7 +2,7 @@
  * @Author: CZ
  * @Date: 2022-04-18 20:15:39
  * @LastEditors: CZ
- * @LastEditTime: 2022-04-20 10:35:23
+ * @LastEditTime: 2022-04-20 15:30:11
  * @Description: 纵横比测试
  * @FilePath: \vue-study\src\components\aspect-ratio-style.vue
 -->
@@ -30,7 +30,6 @@
   display: grid;
   grid-template-columns: repeat(3, 33%);
   grid-column-gap: 20px;
-  overflow: hidden;
 }
 .content {
   &:hover {
