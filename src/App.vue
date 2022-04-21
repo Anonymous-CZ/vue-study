@@ -2,7 +2,7 @@
  * @Author: CZ
  * @Date: 2022-04-14 20:15:18
  * @LastEditors: CZ
- * @LastEditTime: 2022-04-20 15:25:20
+ * @LastEditTime: 2022-04-21 10:55:06
  * @Description: 主应用入口
  * @FilePath: \vue-study\src\App.vue
 -->
@@ -10,7 +10,8 @@
   <nav style="margin-top: 20px; margin-bottom: 30px">
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>|
-    <router-link to="/otherView">Other</router-link>
+    <router-link to="/otherView">Other</router-link>|
+    <router-link to="/map">Map</router-link>
   </nav>
   <router-view />
 </template>
