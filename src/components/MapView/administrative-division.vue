@@ -2,7 +2,7 @@
  * @Author: CZ
  * @Date: 2022-04-24 08:48:40
  * @LastEditors: CZ
- * @LastEditTime: 2022-04-24 13:39:16
+ * @LastEditTime: 2022-04-24 16:45:06
  * @Description: 
  * @FilePath: \vue-study\src\components\MapView\administrative-division.vue
 -->
@@ -13,8 +13,11 @@ import { shallowRef } from "@vue/reactivity";
 export default {
   setup() {
     const map = shallowRef(null);
+    var textQH, textJN;
     return {
       map,
+      textQH,
+      textJN,
     };
   },
   methods: {
@@ -28,9 +31,10 @@ export default {
           self.map = new AMap.Map("administrative-division-container", {
             viewMode: "3D",
             pitch: 60, // 地图俯仰角度
-            zoom: 12,
+            zoom: 11,
             expandZoomRange: true, //支持开启最大缩放级别20
             rotateEnable: true, //开启鼠标右键改变视角
+            mapStyle: "amap://styles/f379bc72684c65ef2f1148c9b5fdaade",
           });
           // 光照
           self.map.AmbientLight = new AMap.Lights.AmbientLight([1, 1, 1], 0.5);
@@ -38,7 +42,7 @@ export default {
           self.map.DirectionLight = new AMap.Lights.DirectionLight(
             [0, 0, 1],
             [1, 1, 1],
-            1
+            0.5
           );
           // 添加Object3DLayer  承载 Object3D对象的图层
           var object3Dlayer = new AMap.Object3DLayer();
@@ -54,105 +58,193 @@ export default {
               showbiz: false,
             });
             // 秦淮区
-            district.search("320104", function (status, result) {
-              // 边界信息
-              var bounds = result.districtList[0].boundaries;
-              var polygons = [];
-              if (bounds) {
-                for (var i = 0, l = bounds.length; i < l; i++) {
-                  //生成行政区划polygon
-                  var polygon = new AMap.Polygon({
-                    map: self.map,
-                    strokeWeight: 1,
-                    path: bounds[i],
-                    fillOpacity: 0.7,
-                    fillColor: "#CCF3FF",
-                    strokeColor: "#CC66CC",
-                  });
-                  polygons.push(polygon);
-                }
-                var prism = new AMap.Object3D.Prism({
-                  path: bounds,
-                  height: 10000, //3d侧边的高度
-                  color: "#0088ffcc",
-                });
-                // 开启透明度支持
-                prism.transparent = true;
-                object3Dlayer.add(prism);
-                // 地图自适应
-                self.map.setFitView();
-              }
-            });
+            self.addQinHuai(district, object3Dlayer, AMap);
             // 溧水区
-            district.search("320117", function (status, result) {
-              // 边界信息
-              var bounds = result.districtList[0].boundaries;
-              var polygons = [];
-              if (bounds) {
-                for (var i = 0, l = bounds.length; i < l; i++) {
-                  //生成行政区划polygon
-                  var polygon = new AMap.Polygon({
-                    map: self.map,
-                    strokeWeight: 1,
-                    path: bounds[i],
-                    fillOpacity: 0.7,
-                    fillColor: "#CCa3FF",
-                    strokeColor: "#CC66CC",
-                  });
-                  polygons.push(polygon);
-                }
-                var prism = new AMap.Object3D.Prism({
-                  path: bounds,
-                  height: 5000, //3d侧边的高度
-                  color: "#9081ffcc",
-                });
-                // 开启透明度支持
-                prism.transparent = true;
-                object3Dlayer.add(prism);
-                // 地图自适应
-                self.map.setFitView();
-              }
-            });
+            self.addLiShui(district, object3Dlayer, AMap);
             // 江宁区
-            district.search("320115", function (status, result) {
-              // 边界信息
-              var bounds = result.districtList[0].boundaries;
-              var polygons = [];
-              if (bounds) {
-                for (var i = 0, l = bounds.length; i < l; i++) {
-                  //生成行政区划polygon
-                  var polygon = new AMap.Polygon({
-                    map: self.map,
-                    strokeWeight: 1,
-                    path: bounds[i],
-                    fillOpacity: 0.7,
-                    fillColor: "#CCB3FF",
-                    strokeColor: "#CA06CC",
-                  });
-                  polygons.push(polygon);
-                }
-                var prism = new AMap.Object3D.Prism({
-                  path: bounds,
-                  height: 500, //3d侧边的高度
-                  color: "#9081ffcc",
-                });
-                // 开启透明度支持
-                prism.transparent = true;
-                object3Dlayer.add(prism);
-                // 地图自适应
-                self.map.setFitView();
-              }
-            });
+            self.addJiangNing(district, object3Dlayer, AMap);
           });
         })
         .catch((e) => {
           console.log(e);
         });
     },
-    addMarker() {},
+
+    addQinHuai(district, object3Dlayer, AMap) {
+      let self = this;
+      district.search("320104", function (status, result) {
+        var lng = result.districtList[0].center.lng;
+        var lat = result.districtList[0].center.lat;
+        self.textQH = new AMap.Text({
+          text:
+            result.districtList[0].name +
+            "</br>(" +
+            result.districtList[0].adcode +
+            ")",
+          verticalAlign: "bottom",
+          position: [lng, lat],
+          height: 5000,
+          zooms: [11, 20],
+          style: {
+            "background-color": "transparent",
+            "text-align": "center",
+            border: "none",
+            color: "white",
+            "font-size": "24px",
+            "font-weight": 600,
+          },
+        });
+        self.map.add(self.textQH);
+        // 边界信息
+        var bounds = result.districtList[0].boundaries;
+        var polygons = [];
+        if (bounds) {
+          for (var i = 0, l = bounds.length; i < l; i++) {
+            //生成行政区划polygon
+            var polygon = new AMap.Polygon({
+              map: self.map,
+              strokeWeight: 1,
+              path: bounds[i],
+              fillOpacity: 0.7,
+              fillColor: "#CCF3FF",
+              strokeColor: "#CC66CC",
+            });
+            polygons.push(polygon);
+          }
+          var prism = new AMap.Object3D.Prism({
+            path: bounds,
+            height: 10000, //3d侧边的高度
+            color: "#0088ffcc",
+          });
+          // 开启透明度支持
+          prism.transparent = true;
+          object3Dlayer.add(prism);
+        }
+      });
+    },
+    /**
+     * @description: 江宁区
+     * @author: CZ
+     * @param {*} district
+     * @param {*} object3Dlayer
+     * @param {*} AMap
+     */
+    addJiangNing(district, object3Dlayer, AMap) {
+      let self = this;
+      district.search("320115", function (status, result) {
+        var lng = result.districtList[0].center.lng;
+        var lat = result.districtList[0].center.lat;
+        self.textJN = new AMap.Text({
+          text:
+            result.districtList[0].name +
+            "</br>(" +
+            result.districtList[0].adcode +
+            ")",
+          verticalAlign: "bottom",
+          position: [lng, lat],
+          height: 5000,
+          style: {
+            "background-color": "transparent",
+            "text-align": "center",
+            border: "none",
+            color: "white",
+            "font-size": "24px",
+            "font-weight": 600,
+          },
+        });
+
+        self.map.add(self.textJN);
+        // 边界信息
+        var bounds = result.districtList[0].boundaries;
+        var polygons = [];
+        if (bounds) {
+          for (var i = 0, l = bounds.length; i < l; i++) {
+            //生成行政区划polygon
+            var polygon = new AMap.Polygon({
+              map: self.map,
+              strokeWeight: 1,
+              path: bounds[i],
+              fillOpacity: 0.1,
+              fillColor: "#ffffffcc",
+              strokeColor: "#CA06CC",
+            });
+            polygons.push(polygon);
+          }
+          var color = "#9088ffcc";
+          var prism = new AMap.Object3D.Prism({
+            path: bounds,
+            height: 5000, //3d侧边的高度
+            color: color,
+          });
+          // 开启透明度支持
+          prism.transparent = true;
+          object3Dlayer.add(prism);
+          // 地图自适应
+        }
+      });
+    },
+    addLiShui(district, object3Dlayer, AMap) {
+      let self = this;
+      district.search("320117", function (status, result) {
+        var lng = result.districtList[0].center.lng;
+        var lat = result.districtList[0].center.lat;
+        var text = new AMap.Text({
+          text:
+            result.districtList[0].name +
+            "</br>(" +
+            result.districtList[0].adcode +
+            ")",
+          verticalAlign: "bottom",
+          position: [lng, lat],
+          height: 5000,
+          style: {
+            "background-color": "transparent",
+            "text-align": "center",
+            border: "none",
+            color: "white",
+            "font-size": "24px",
+            "font-weight": 600,
+          },
+        });
+        self.map.add(text);
+        // 边界信息
+        var bounds = result.districtList[0].boundaries;
+        var polygons = [];
+        if (bounds) {
+          for (var i = 0, l = bounds.length; i < l; i++) {
+            //生成行政区划polygon
+            var polygon = new AMap.Polygon({
+              map: self.map,
+              strokeWeight: 1,
+              path: bounds[i],
+              fillOpacity: 0.7,
+              fillColor: "#CCa3FF",
+              strokeColor: "#CC66CC",
+            });
+            polygons.push(polygon);
+          }
+          var prism = new AMap.Object3D.Prism({
+            path: bounds,
+            height: 5000, //3d侧边的高度
+            color: "#F7E93da6",
+          });
+          // 开启透明度支持
+          prism.transparent = true;
+          object3Dlayer.add(prism);
+          // 地图自适应
+        }
+      });
+    },
+    fitViewQinHuai() {
+      let self = this;
+      self.map.setFitView([self.textQH, self.textJN]);
+    },
+    fitView() {
+      let self = this;
+      self.map.setFitView();
+    },
   },
   mounted() {
-    //DOM初始化完成进行地图初始化
     this.ininMap();
   },
 };
@@ -160,6 +252,8 @@ export default {
 
 <template>
   <div class="administrative-division">
+    <button @click="fitViewQinHuai()">自适应秦淮覆盖物</button>
+    <button @click="fitView()">自适应所有覆盖物</button>
     <div id="administrative-division-container"></div>
   </div>
 </template>
@@ -168,6 +262,6 @@ export default {
   background-color: rgb(93, 170, 170);
 }
 #administrative-division-container {
-  height: 500px;
+  height: 1000px;
 }
 </style>
