@@ -2,7 +2,7 @@
  * @Author: CZ
  * @Date: 2022-04-21 10:08:13
  * @LastEditors: CZ
- * @LastEditTime: 2022-04-24 08:52:56
+ * @LastEditTime: 2022-04-24 17:00:26
  * @Description: 高德地图demo
  * @FilePath: \vue-study\src\views\MapVIew.vue
 -->
@@ -34,7 +34,7 @@ export default {
 <style lang="scss" scoped>
 .mapStyle {
   display: grid;
-  grid-template-rows: 500px;
+  grid-template-rows: 500px 500px 500px 500px;
   background-color: antiquewhite;
   grid-row-gap: 20px;
   padding-bottom: 5%;

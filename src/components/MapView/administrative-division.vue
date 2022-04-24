@@ -2,7 +2,7 @@
  * @Author: CZ
  * @Date: 2022-04-24 08:48:40
  * @LastEditors: CZ
- * @LastEditTime: 2022-04-24 16:45:06
+ * @LastEditTime: 2022-04-24 17:21:31
  * @Description: 
  * @FilePath: \vue-study\src\components\MapView\administrative-division.vue
 -->
@@ -35,6 +35,20 @@ export default {
             expandZoomRange: true, //支持开启最大缩放级别20
             rotateEnable: true, //开启鼠标右键改变视角
             mapStyle: "amap://styles/f379bc72684c65ef2f1148c9b5fdaade",
+          });
+          //加载天气查询插件
+          AMap.plugin("AMap.Weather", function () {
+            //创建天气查询实例
+            var weather = new AMap.Weather();
+
+            //执行实时天气信息查询
+            weather.getLive("320104", function (err, data) {
+              console.log(err, data);
+            });
+            //执行天气预报信息查询
+            weather.getForecast("320104", function (err, data) {
+              console.log(err, data);
+            });
           });
           // 光照
           self.map.AmbientLight = new AMap.Lights.AmbientLight([1, 1, 1], 0.5);
@@ -256,12 +270,18 @@ export default {
     <button @click="fitView()">自适应所有覆盖物</button>
     <div id="administrative-division-container"></div>
   </div>
+  <div class="fill-color"></div>
 </template>
 <style lang="scss" scoped>
 .administrative-division {
   background-color: rgb(93, 170, 170);
+  grid-row-start: 2;
+  grid-row-end: 4;
 }
 #administrative-division-container {
   height: 1000px;
+}
+.fill-color {
+  background-color: bisque;
 }
 </style>
