@@ -2,7 +2,7 @@
  * @Author: CZ
  * @Date: 2022-04-24 08:48:40
  * @LastEditors: CZ
- * @LastEditTime: 2022-04-24 17:21:31
+ * @LastEditTime: 2022-04-25 15:20:44
  * @Description: 
  * @FilePath: \vue-study\src\components\MapView\administrative-division.vue
 -->
@@ -36,6 +36,31 @@ export default {
             rotateEnable: true, //开启鼠标右键改变视角
             mapStyle: "amap://styles/f379bc72684c65ef2f1148c9b5fdaade",
           });
+          AMap.plugin(
+            [
+              "AMap.ToolBar",
+              "AMap.Scale",
+              "AMap.OverView",
+              "AMap.MapType",
+              "AMap.Geolocation",
+            ],
+            function () {
+              // 在图面添加工具条控件，工具条控件集成了缩放、平移、定位等功能按钮在内的组合控件
+              self.map.addControl(new AMap.ToolBar());
+
+              // 在图面添加比例尺控件，展示地图在当前层级和纬度下的比例尺
+              self.map.addControl(new AMap.Scale());
+
+              // 在图面添加鹰眼控件，在地图右下角显示地图的缩略图
+              self.map.addControl(new AMap.OverView({ isOpen: true }));
+
+              // 在图面添加类别切换控件，实现默认图层与卫星图、实施交通图层之间切换的控制
+              self.map.addControl(new AMap.MapType());
+
+              // 在图面添加定位控件，用来获取和展示用户主机所在的经纬度位置
+              self.map.addControl(new AMap.Geolocation());
+            }
+          );
           //加载天气查询插件
           AMap.plugin("AMap.Weather", function () {
             //创建天气查询实例
@@ -43,11 +68,11 @@ export default {
 
             //执行实时天气信息查询
             weather.getLive("320104", function (err, data) {
-              console.log(err, data);
+              console.log("天气情况：", data);
             });
             //执行天气预报信息查询
             weather.getForecast("320104", function (err, data) {
-              console.log(err, data);
+              console.log("天气预报：", data);
             });
           });
           // 光照
@@ -109,26 +134,33 @@ export default {
           },
         });
         self.map.add(self.textQH);
-        // 边界信息
+
+        // 折线的节点坐标数组，每个元素为 AMap.LngLat 对象
+        var path = [
+          new AMap.LngLat(118.84112392057455, 31.984711744367075),
+          new AMap.LngLat(118.84124414476307, 31.984830483919296),
+          new AMap.LngLat(116.387271, 39.912501),
+          new AMap.LngLat(116.388258, 39.904689),
+        ];
+
+        // 创建折线实例
+        var Polygon = new AMap.Polygon({
+          path: path,
+          borderWeight: 1, // 线条宽度，默认为 1
+          strokeColor: "red", // 线条颜色
+          lineJoin: "round", // 折线拐点连接处样式
+        });
+
+        // 添加至地图实例
+        self.map.add(Polygon);
+
         var bounds = result.districtList[0].boundaries;
-        var polygons = [];
         if (bounds) {
-          for (var i = 0, l = bounds.length; i < l; i++) {
-            //生成行政区划polygon
-            var polygon = new AMap.Polygon({
-              map: self.map,
-              strokeWeight: 1,
-              path: bounds[i],
-              fillOpacity: 0.7,
-              fillColor: "#CCF3FF",
-              strokeColor: "#CC66CC",
-            });
-            polygons.push(polygon);
-          }
+          var color = "rgba(32,90,250,0.8)";
           var prism = new AMap.Object3D.Prism({
             path: bounds,
             height: 10000, //3d侧边的高度
-            color: "#0088ffcc",
+            color: color,
           });
           // 开启透明度支持
           prism.transparent = true;
