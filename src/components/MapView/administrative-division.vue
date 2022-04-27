@@ -2,7 +2,7 @@
  * @Author: CZ
  * @Date: 2022-04-24 08:48:40
  * @LastEditors: CZ
- * @LastEditTime: 2022-04-27 14:12:56
+ * @LastEditTime: 2022-04-27 15:54:28
  * @Description: 
  * @FilePath: \vue-study\src\components\MapView\administrative-division.vue
 -->
@@ -161,6 +161,7 @@ export default {
       district.search("320114", function (status, result) {
         var lng = result.districtList[0].center.lng;
         var lat = result.districtList[0].center.lat;
+        // 创建文本
         self.textQH = new AMap.Text({
           text:
             result.districtList[0].name +
@@ -181,6 +182,21 @@ export default {
           },
         });
         self.map.add(self.textQH);
+        // 创建 AMap.Icon 实例：
+        var icon = new AMap.Icon({
+          size: new AMap.Size(100, 100), // 图标尺寸
+          image: "https://picsum.photos/100/100", // Icon的图像
+          // imageOffset: new AMap.Pixel(0, -50), // 图像相对展示区域的偏移量，适于雪碧图等
+          imageSize: new AMap.Size(100, 100), // 根据所设置的大小拉伸或压缩图片
+        });
+        // 创建Mark点 将Icon添加到实例上
+        var marker = new AMap.Marker({
+          position: [lng, lat], // 基点位置
+          offset: new AMap.Pixel(-50, -50), // 相对于基点的偏移位置
+          icon: icon, // 添加 Icon 实例
+        });
+        self.map.add(marker);
+        // 创建3D
         var bounds = result.districtList[0].boundaries;
         if (bounds) {
           var color = "rgba(2,230,250,0.8)";
