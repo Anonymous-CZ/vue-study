@@ -2,7 +2,7 @@
  * @Author: CZ
  * @Date: 2022-04-24 08:48:40
  * @LastEditors: CZ
- * @LastEditTime: 2022-04-25 15:20:44
+ * @LastEditTime: 2022-04-27 11:55:37
  * @Description: 
  * @FilePath: \vue-study\src\components\MapView\administrative-division.vue
 -->
@@ -229,6 +229,13 @@ export default {
         }
       });
     },
+    /**
+     * @description: 溧水区
+     * @author: CZ
+     * @param {*} district
+     * @param {*} object3Dlayer
+     * @param {*} AMap
+     */
     addLiShui(district, object3Dlayer, AMap) {
       let self = this;
       district.search("320117", function (status, result) {
