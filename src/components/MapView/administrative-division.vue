@@ -2,7 +2,7 @@
  * @Author: CZ
  * @Date: 2022-04-24 08:48:40
  * @LastEditors: CZ
- * @LastEditTime: 2022-04-27 13:38:15
+ * @LastEditTime: 2022-04-27 14:12:56
  * @Description: 
  * @FilePath: \vue-study\src\components\MapView\administrative-division.vue
 -->
@@ -373,8 +373,8 @@ export default {
 
           pointsGeo.vertices.push(center.x, center.y, height); // 空中点
           pointsGeo.pointSizes.push(size);
-          pointsGeo.vertexColors.push(1 * 0.029, 2 * 0.015, 2 * 0.01, 1);
-          points3D.borderColor = [0.4, 0.8, 0.7, 1];
+          pointsGeo.vertexColors.push(0.029, 0.015, 0.01, 0.5);
+          points3D.borderColor = [0.2, 0.5, 0.7, 1];
           points3D.borderWeight = 3;
           object3Dlayer.add(lines);
           object3Dlayer.add(points3D);
