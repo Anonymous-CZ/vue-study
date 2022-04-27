@@ -2,7 +2,7 @@
  * @Author: CZ
  * @Date: 2022-04-24 08:48:40
  * @LastEditors: CZ
- * @LastEditTime: 2022-04-27 11:55:37
+ * @LastEditTime: 2022-04-27 13:38:15
  * @Description: 
  * @FilePath: \vue-study\src\components\MapView\administrative-division.vue
 -->
@@ -84,7 +84,10 @@ export default {
             0.5
           );
           // 添加Object3DLayer  承载 Object3D对象的图层
-          var object3Dlayer = new AMap.Object3DLayer();
+          var object3Dlayer = new AMap.Object3DLayer({
+            zIndex: 110,
+            opacity: 1,
+          });
           self.map.add(object3Dlayer);
 
           AMap.plugin("AMap.DistrictSearch", function () {
@@ -95,20 +98,103 @@ export default {
               // 设置查询行政区级别为 区
               level: "district",
               showbiz: false,
+              setSubdistrict: 2,
             });
             // 秦淮区
             self.addQinHuai(district, object3Dlayer, AMap);
             // 溧水区
             self.addLiShui(district, object3Dlayer, AMap);
+
             // 江宁区
             self.addJiangNing(district, object3Dlayer, AMap);
+            // 雨花台区
+            self.addYuHuaTai(district, object3Dlayer, AMap);
+            // 玄武区
+            self.addXuanWu(district, object3Dlayer, AMap);
           });
         })
         .catch((e) => {
           console.log(e);
         });
     },
-
+    addXuanWu(district, object3Dlayer, AMap) {
+      let self = this;
+      district.search("320102", function (status, result) {
+        var lng = result.districtList[0].center.lng;
+        var lat = result.districtList[0].center.lat;
+        self.textQH = new AMap.Text({
+          text:
+            result.districtList[0].name +
+            "</br>(" +
+            result.districtList[0].adcode +
+            ")",
+          verticalAlign: "bottom",
+          position: [lng, lat],
+          height: 8000,
+          zooms: [11, 20],
+          style: {
+            "background-color": "transparent",
+            "text-align": "center",
+            border: "none",
+            color: "white",
+            "font-size": "24px",
+            "font-weight": 600,
+          },
+        });
+        self.map.add(self.textQH);
+        var bounds = result.districtList[0].boundaries;
+        if (bounds) {
+          var color = "rgba(2,130,250,0.8)";
+          var prism = new AMap.Object3D.Prism({
+            path: bounds,
+            height: 7000, //3d侧边的高度
+            color: color,
+          });
+          // 开启透明度支持
+          prism.transparent = true;
+          object3Dlayer.add(prism);
+        }
+      });
+    },
+    addYuHuaTai(district, object3Dlayer, AMap) {
+      let self = this;
+      district.search("320114", function (status, result) {
+        var lng = result.districtList[0].center.lng;
+        var lat = result.districtList[0].center.lat;
+        self.textQH = new AMap.Text({
+          text:
+            result.districtList[0].name +
+            "</br>(" +
+            result.districtList[0].adcode +
+            ")",
+          verticalAlign: "bottom",
+          position: [lng, lat],
+          height: 5000,
+          zooms: [11, 20],
+          style: {
+            "background-color": "transparent",
+            "text-align": "center",
+            border: "none",
+            color: "white",
+            "font-size": "24px",
+            "font-weight": 600,
+          },
+        });
+        self.map.add(self.textQH);
+        var bounds = result.districtList[0].boundaries;
+        if (bounds) {
+          var color = "rgba(2,230,250,0.8)";
+          var prism = new AMap.Object3D.Prism({
+            path: bounds,
+            height: 8000, //3d侧边的高度
+            color: color,
+          });
+          // 开启透明度支持
+          prism.transparent = true;
+          object3Dlayer.add(prism);
+        }
+      });
+    },
     addQinHuai(district, object3Dlayer, AMap) {
       let self = this;
       district.search("320104", function (status, result) {
@@ -188,6 +274,7 @@ export default {
             ")",
           verticalAlign: "bottom",
           position: [lng, lat],
+          zooms: [11, 20],
           height: 5000,
           style: {
             "background-color": "transparent",
@@ -229,13 +316,6 @@ export default {
         }
       });
     },
-    /**
-     * @description: 溧水区
-     * @author: CZ
-     * @param {*} district
-     * @param {*} object3Dlayer
-     * @param {*} AMap
-     */
     addLiShui(district, object3Dlayer, AMap) {
       let self = this;
       district.search("320117", function (status, result) {
@@ -249,6 +329,7 @@ export default {
             ")",
           verticalAlign: "bottom",
           position: [lng, lat],
+          zooms: [11, 20],
           height: 5000,
           style: {
             "background-color": "transparent",
@@ -262,20 +343,7 @@ export default {
         self.map.add(text);
         // 边界信息
         var bounds = result.districtList[0].boundaries;
-        var polygons = [];
         if (bounds) {
-          for (var i = 0, l = bounds.length; i < l; i++) {
-            //生成行政区划polygon
-            var polygon = new AMap.Polygon({
-              map: self.map,
-              strokeWeight: 1,
-              path: bounds[i],
-              fillOpacity: 0.7,
-              fillColor: "#CCa3FF",
-              strokeColor: "#CC66CC",
-            });
-            polygons.push(polygon);
-          }
           var prism = new AMap.Object3D.Prism({
             path: bounds,
             height: 5000, //3d侧边的高度
@@ -284,9 +352,48 @@ export default {
           // 开启透明度支持
           prism.transparent = true;
           object3Dlayer.add(prism);
-          // 地图自适应
+          var points3D = new AMap.Object3D.Points();
+          var lines = new AMap.Object3D.Line();
+          var lineGeo = lines.geometry;
+          points3D.transparent = true;
+          var pointsGeo = points3D.geometry;
+          var center = self.lnglatToG20(result.districtList[0].center, AMap);
+          // points 类型的顶点坐标需要使用 G20 坐标
+          var size = Math.max(10, Math.round(Math.random() * 40));
+          var height = -size * 1000;
+          // 连线
+          lineGeo.vertices.push(center.x, center.y, 0);
+          lineGeo.vertexColors.push(0, 1, 1, 1);
+          lineGeo.vertices.push(center.x, center.y, height);
+          lineGeo.vertexColors.push(0, 1, 1, 1);
+
+          pointsGeo.vertices.push(center.x, center.y, 0); // 尾部小点
+          pointsGeo.pointSizes.push(5);
+          pointsGeo.vertexColors.push(0, 0, 1, 1);
+
+          pointsGeo.vertices.push(center.x, center.y, height); // 空中点
+          pointsGeo.pointSizes.push(size);
+          pointsGeo.vertexColors.push(1 * 0.029, 2 * 0.015, 2 * 0.01, 1);
+          points3D.borderColor = [0.4, 0.8, 0.7, 1];
+          points3D.borderWeight = 3;
+          object3Dlayer.add(lines);
+          object3Dlayer.add(points3D);
         }
       });
+    },
+    /**
+     * @description: 将坐标装换为G20坐标
+     * @author: CZ
+     * @param {*} lnglat
+     * @param {*} AMap
+     * @return {*} lnglat
+     */
+    lnglatToG20(lnglat, AMap) {
+      let self = this;
+      lnglat = self.map.lngLatToGeodeticCoord(lnglat);
+      lnglat.x = AMap.Util.format(lnglat.x, 3);
+      lnglat.y = AMap.Util.format(lnglat.y, 3);
+      return lnglat;
     },
     fitViewQinHuai() {
       let self = this;
