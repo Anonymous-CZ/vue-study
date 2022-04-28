@@ -2,7 +2,7 @@
  * @Author: CZ
  * @Date: 2022-04-24 08:48:40
  * @LastEditors: CZ
- * @LastEditTime: 2022-04-27 15:54:28
+ * @LastEditTime: 2022-04-28 16:11:59
  * @Description: 
  * @FilePath: \vue-study\src\components\MapView\administrative-division.vue
 -->
@@ -43,6 +43,7 @@ export default {
               "AMap.OverView",
               "AMap.MapType",
               "AMap.Geolocation",
+              "ElasticMarker",
             ],
             function () {
               // 在图面添加工具条控件，工具条控件集成了缩放、平移、定位等功能按钮在内的组合控件
@@ -127,12 +128,28 @@ export default {
             result.districtList[0].name +
             "</br>(" +
             result.districtList[0].adcode +
-            ")",
+            ")", //标记显示的文本内容
+          position: [lng, lat], //位置
+          ancher: "center", //文本标记锚点'top-left'|'top-center'|'top-right'|'middle-left'|'center'|'middle-right'|'bottom-left'|'bottom-center'|'bottom-right'
+          // offset: Pixel(0, 0), //点标记显示位置偏移量
+          topWhenClick: true, //鼠标点击时置顶
+          bubble: true, //将覆盖物的鼠标或touch等事件冒泡到地图上
+          draggable: true, //是否可拖动
+          raiseOnDrag: true, //拖动标记的动画效果
+          cursor: "", //鼠标悬停时样式
+          visible: true, //点标记是否可见
+          zIndex: 100, //默认值100
+          angle: 0, //点标记的旋转角度
+          autoRotaion: false, //是否自动旋转点标记
+          // animation: "AMAP_ANIMATION_BOUNCE",//动画效果
+          // shadow: Icon,//点标记阴影
+          title: "这是一个文字提示", //鼠标滑过时的文字提示
+          clickable: true, //点标记是否可点击
           verticalAlign: "bottom",
-          position: [lng, lat],
-          height: 8000,
-          zooms: [11, 20],
+          height: 8000, //高度
+          zooms: [11, 20], //在什么层级内显示
           style: {
+            //样式
             "background-color": "transparent",
             "text-align": "center",
             border: "none",
@@ -154,6 +171,63 @@ export default {
           prism.transparent = true;
           object3Dlayer.add(prism);
         }
+        var zoomStyleMapping1 = {
+          14: 0,
+          15: 0,
+          16: 1,
+          17: 1,
+          18: 1,
+          19: 1,
+          20: 1,
+        };
+        var elasticMarker = new AMap.ElasticMarker({
+          position: [lng, lat], // 基点位置
+          styles: [
+            {
+              clickable: true, //设置是否可点击
+              draggable: true, //设置是否可拖动
+              icon: {
+                img: "https://picsum.photos/100/100?random=2",
+                size: [32, 32], //可见区域的大小
+                ancher: [0, 0], //锚点
+                fitZoom: 14, //最合适的级别
+                scaleFactor: 2, //地图放大一级的缩放比例系数
+                maxScale: 2, //最大放大比例
+                minScale: 1, //最小放大比例
+              },
+              label: {
+                content: "name",
+                offset: [-35, 0],
+                position: "BM",
+                minZoom: 15,
+              },
+            },
+            {
+              clickable: true, //设置是否可点击
+              draggable: true, //设置是否可拖动
+              icon: {
+                img: "https://picsum.photos/100/100?random=3",
+                size: [64, 64],
+                ancher: [0, 0], //锚点，图标原始大小下锚点所处的位置，相对左上角
+                fitZoom: 17.5, //显示原始大小的级别
+                scaleFactor: 2, //地图放大一级的缩放比例系数
+                maxScale: 2, //最大放大比例
+                minScale: 0.125, //最小放大比例
+              },
+              label: {
+                content: "name2",
+                position: "BM",
+                offset: [-15, 0], //相对于position的偏移量
+                //BL、BM、BR、ML、MR、TL、TM、TR分别代表左下角、底部中央、右下角、
+                //左侧中央、右侧中央、左上角、顶部中央、右上角。
+                //缺省时代表相对图标的锚点位置
+                minZoom: 1, //label的最小显示级别
+              },
+            },
+          ],
+          zoomStyleMapping: zoomStyleMapping1,
+        });
+        self.map.add(elasticMarker);
       });
     },
     addYuHuaTai(district, object3Dlayer, AMap) {
@@ -184,16 +258,19 @@ export default {
         self.map.add(self.textQH);
         // 创建 AMap.Icon 实例：
         var icon = new AMap.Icon({
-          size: new AMap.Size(100, 100), // 图标尺寸
-          image: "https://picsum.photos/100/100", // Icon的图像
+          size: new AMap.Size(50, 50), // 图标尺寸
+          image: "https://picsum.photos/100/100?random=1", // Icon的图像
           // imageOffset: new AMap.Pixel(0, -50), // 图像相对展示区域的偏移量，适于雪碧图等
-          imageSize: new AMap.Size(100, 100), // 根据所设置的大小拉伸或压缩图片
+          imageSize: new AMap.Size(50, 50), // 根据所设置的大小拉伸或压缩图片
         });
         // 创建Mark点 将Icon添加到实例上
         var marker = new AMap.Marker({
           position: [lng, lat], // 基点位置
-          offset: new AMap.Pixel(-50, -50), // 相对于基点的偏移位置
+          offset: new AMap.Pixel(-25, -25), // 相对于基点的偏移位置
+          zooms: [11, 20],
           icon: icon, // 添加 Icon 实例
+          maxScale: 0.5, //最大放大比例
+          minScale: 0.5, //最小放大比例
         });
         self.map.add(marker);
         // 创建3D

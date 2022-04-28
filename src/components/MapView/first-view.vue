@@ -2,7 +2,7 @@
  * @Author: CZ
  * @Date: 2022-04-21 10:10:30
  * @LastEditors: CZ
- * @LastEditTime: 2022-04-24 10:58:33
+ * @LastEditTime: 2022-04-28 15:03:36
  * @Description: 第一个地图demo
  * @FilePath: \vue-study\src\components\MapView\first-view.vue
 -->
@@ -33,7 +33,7 @@ export default {
     const initMap = () => {
       AMapLoader.load({
         key: "5d0f6d15be39f3f60f3d3d3cd1e2b3a9", // 申请好的Web端开发者Key，首次调用 load 时必填
-        // version: "2.0", // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
+        version: "2.0", // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
         plugins: ["AMap.ToolBar", "AMap.Driving", "AMap.Geolocation"], // 需要使用的的插件列表，如比例尺'AMap.Scale'等
       }).then((AMap) => {
         map = new AMap.Map("mapId", {
