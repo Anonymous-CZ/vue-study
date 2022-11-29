@@ -1,17 +1,18 @@
 <!--
  * @Author: CZ
  * @Date: 2022-04-14 20:15:18
- * @LastEditors: CZ
- * @LastEditTime: 2022-04-21 10:55:06
+ * @LastEditors: chenzeng
+ * @LastEditTime: 2022-11-22 16:20:50
  * @Description: 主应用入口
- * @FilePath: \vue-study\src\App.vue
+ * @FilePath: /vue-study/src/App.vue
 -->
 <template>
   <nav style="margin-top: 20px; margin-bottom: 30px">
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>|
     <router-link to="/otherView">Other</router-link>|
-    <router-link to="/map">Map</router-link>
+    <router-link to="/map">Map</router-link>|
+    <router-link to="/echarts">Echarts</router-link>
   </nav>
   <router-view />
 </template>
